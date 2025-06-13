@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Check Time API",
+		"description": "API para registro de ponto de funcionários",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						},
+						"description": "Endpoint para autenticação de usuários"
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"João Silva\",\n    \"email\": \"joao@example.com\",\n    \"password\": \"123456\",\n    \"role\": \"EMPLOYEE\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": ["{{baseUrl}}"],
+							"path": ["users"]
+						},
+						"description": "Criar novo usuário (apenas admin)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Time Records",
+			"item": [
+				{
+					"name": "Create Time Record",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{employeeToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"ENTRY\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/time-records",
+							"host": ["{{baseUrl}}"],
+							"path": ["time-records"]
+						},
+						"description": "Registrar ponto (apenas funcionários)"
+					}
+				},
+				{
+					"name": "Get All Time Records",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/time-records",
+							"host": ["{{baseUrl}}"],
+							"path": ["time-records"]
+						},
+						"description": "Listar todos os registros de ponto (apenas admin)"
+					}
+				},
+				{
+					"name": "Get Employee Time Records",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/time-records/employee/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["time-records", "employee", "1"]
+						},
+						"description": "Listar registros de ponto de um funcionário específico (apenas admin)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Generate Report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/reports/generate?startDate=2024-03-01&endDate=2024-03-31",
+							"host": ["{{baseUrl}}"],
+							"path": ["reports", "generate"],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-03-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-03-31"
+								}
+							]
+						},
+						"description": "Gerar relatório CSV (apenas admin)"
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "adminToken",
+			"value": "seu_token_jwt_admin"
+		},
+		{
+			"key": "employeeToken",
+			"value": "seu_token_jwt_funcionario"
+		}
+	]
+} 
