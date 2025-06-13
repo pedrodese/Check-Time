@@ -19,7 +19,7 @@ import { ReportsModule } from './reports/reports.module';
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_DATABASE || 'check_time',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: true,
     }),
     UsersModule,
     AuthModule,
