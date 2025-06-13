@@ -76,7 +76,7 @@ Todos os endpoints (exceto o login) requerem autenticação via JWT. O token dev
     "registration": "string (6 dígitos)",
     "name": "string",
     "password": "string (mínimo 6 caracteres)",
-    "role": "ADMIN" | "EMPLOYEE",
+    "role": "ADMIN", "EMPLOYEE",
     "morningEntry": "string (HH:mm)",
     "morningExit": "string (HH:mm)",
     "afternoonEntry": "string (HH:mm)",
@@ -98,7 +98,7 @@ Todos os endpoints (exceto o login) requerem autenticação via JWT. O token dev
 - **Body:**
   ```json
   {
-    "type": "MORNING_ENTRY" | "MORNING_EXIT" | "AFTERNOON_ENTRY" | "AFTERNOON_EXIT"
+    "type": "MORNING_ENTRY", "MORNING_EXIT", "AFTERNOON_ENTRY", "AFTERNOON_EXIT"
   }
   ```
 - **Acesso:** Apenas Funcionários
