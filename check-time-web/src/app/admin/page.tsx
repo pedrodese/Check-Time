@@ -101,7 +101,7 @@ export default function AdminPage() {
           <table className="min-w-full bg-zinc-800 rounded-lg">
             <thead>
               <tr>
-                <th className="px-4 py-2 text-left">Usuário</th>
+                <th className="px-4 py-2 text-left">Funcionário</th>
                 <th className="px-4 py-2 text-left">Matrícula</th>
                 <th className="px-4 py-2 text-left">Tipo</th>
                 <th className="px-4 py-2 text-left">Data</th>

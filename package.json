@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@radix-ui/react-toast": "^1.2.14",
     "file-saver": "^2.0.5"
   },
   "devDependencies": {

@@ -8,6 +8,7 @@ import { api } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useToast } from "@/hooks/use-toast";
 
 const schema = z.object({
   registration: z.string().length(6, 'A matrícula deve conter exatamente 6 dígitos'),
@@ -23,6 +24,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function NovoFuncionarioPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -42,8 +44,18 @@ export default function NovoFuncionarioPage() {
         ...data,
         role: 'employee',
       });
-      router.push('/admin');
+      toast({
+        variant: "success",
+        title: "Funcionário cadastrado!",
+        description: "O funcionário foi cadastrado com sucesso.",
+      });
+      router.push('/admin/funcionarios');
     } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Erro ao cadastrar",
+        description: "Não foi possível cadastrar o funcionário. Tente novamente.",
+      });
       form.setError('root', { message: 'Erro ao cadastrar funcionário' });
     }
   }

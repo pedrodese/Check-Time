@@ -5,6 +5,7 @@ import { api } from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { useToast } from "@/hooks/use-toast";
 
 interface TimeRecord {
   id: string;
@@ -16,6 +17,7 @@ interface TimeRecord {
 export default function FuncionarioPage() {
   const { user } = useAuth();
   const router = useRouter();
+  const { toast } = useToast();
   const [records, setRecords] = useState<TimeRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [registering, setRegistering] = useState(false);
@@ -46,14 +48,22 @@ export default function FuncionarioPage() {
 
   async function handleRegister(type: string) {
     setRegistering(true);
-    setMessage(null);
     try {
       await api.post('/time-records', { type });
-      setMessage({ type: 'success', text: 'Registro realizado com sucesso!' });
+      toast({
+        variant: "success",
+        title: "Ponto registrado!",
+        description: "Seu registro de ponto foi realizado com sucesso.",
+      });
       await fetchRecords();
     } catch (err: any) {
       const apiMsg = err?.response?.data?.message;
-      setMessage({ type: 'error', text: Array.isArray(apiMsg) ? apiMsg[0] : apiMsg || 'Erro ao registrar ponto' });
+      const errorMessage = Array.isArray(apiMsg) ? apiMsg[0] : apiMsg || 'Erro ao registrar ponto';
+      toast({
+        variant: "destructive",
+        title: "Erro ao registrar",
+        description: errorMessage,
+      });
     }
     setRegistering(false);
   }
