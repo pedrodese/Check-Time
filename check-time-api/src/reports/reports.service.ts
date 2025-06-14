@@ -14,9 +14,12 @@ export class ReportsService {
   ) {}
 
   async generateReport(startDate: Date, endDate: Date) {
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
     const records = await this.timeRecordRepository.find({
       where: {
-        createdAt: Between(startDate, endDate),
+        date: Between(startDate, end),
       },
       relations: ['user'],
       order: {
@@ -46,7 +49,7 @@ export class ReportsService {
     const recordsToWrite = records.map(record => ({
       employeeName: record.user.name,
       type: record.type,
-      date: record.date.toLocaleDateString('pt-BR'),
+      date: new Date(record.date).toLocaleDateString('pt-BR'),
       time: record.time,
       createdAt: record.createdAt.toLocaleString('pt-BR'),
     }));

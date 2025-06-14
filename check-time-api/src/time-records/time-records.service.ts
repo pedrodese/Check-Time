@@ -46,11 +46,11 @@ export class TimeRecordsService {
       throw new ConflictException('Já existe um registro deste tipo para hoje');
     }
 
-    // Verificar se está dentro da janela de horário permitida
-    const window = this.getTimeWindow(createTimeRecordDto.type);
-    if (!this.isWithinTimeWindow(currentTime, window.start, window.end)) {
-      throw new BadRequestException('Fora da janela de horário permitida');
-    }
+    // // Verificar se está dentro da janela de horário permitida
+    // const window = this.getTimeWindow(createTimeRecordDto.type);
+    // if (!this.isWithinTimeWindow(currentTime, window.start, window.end)) {
+    //   throw new BadRequestException('Fora da janela de horário permitida');
+    // }
 
     const timeRecord = this.timeRecordsRepository.create({
       userId: user.id,
