@@ -1,6 +1,84 @@
-# API Check Time
+# Check Time - Sistema de Registro de Ponto
 
-API para gerenciamento de registros de ponto e relatórios.
+Sistema completo para gerenciamento de registros de ponto e relatórios, composto por uma API REST (NestJS) e uma aplicação web (Next.js).
+
+## Estrutura do Projeto
+
+O projeto está dividido em duas partes principais:
+
+- `check-time-api`: Backend em NestJS
+- `check-time-web`: Frontend em Next.js
+
+## Pré-requisitos
+
+- Node.js 18 ou superior
+- Docker e Docker Compose
+- PostgreSQL (opcional, caso não queira usar Docker)
+
+## Configuração e Execução
+
+### 1. Banco de Dados
+
+O projeto utiliza PostgreSQL como banco de dados. Você pode executá-lo de duas formas:
+
+#### Usando Docker (Recomendado)
+
+```bash
+# Na pasta check-time-api
+docker-compose up -d
+```
+
+Isso irá:
+- Criar um container PostgreSQL
+- Configurar o banco de dados com as credenciais padrão
+- Expor a porta 5432
+- Criar um volume persistente para os dados
+
+#### Usando PostgreSQL Local
+
+Se preferir usar uma instalação local do PostgreSQL, certifique-se de:
+1. Ter o PostgreSQL instalado
+2. Criar um banco de dados chamado `check_time`
+3. Configurar as variáveis de ambiente conforme necessário
+
+### 2. Backend (API)
+
+```bash
+# Na pasta check-time-api
+npm install
+npm run start:dev
+```
+
+A API estará disponível em `http://localhost:3000`
+
+### 3. Frontend (Web)
+
+```bash
+# Na pasta check-time-web
+npm install
+npm run dev
+```
+
+A aplicação web estará disponível em `http://localhost:3001`
+
+## Variáveis de Ambiente
+
+### API (.env na pasta check-time-api)
+
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=check_time
+JWT_SECRET=seu_jwt_secret_aqui
+```
+
+### Web (.env na pasta check-time-web)
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000
+```
 
 ## Autenticação
 
